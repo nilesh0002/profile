@@ -368,55 +368,64 @@ document.addEventListener('DOMContentLoaded', () => {
 const style = document.createElement('style');
 style.textContent = `
     .repo-card {
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transition: transform 0.3s;
-        margin-bottom: 2rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--dark-bg);
+        border-radius: 6px;
+        padding: 1rem;
+        transition: border-color 0.2s;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
     }
 
     .repo-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--primary-color);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        border-color: var(--text-secondary);
     }
 
     .repo-card h3 {
-        color: var(--text-primary);
+        color: var(--primary-color);
         margin-bottom: 0.5rem;
-        font-size: 1.5rem;
+        font-size: 1rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-weight: 600;
+    }
+
+    .repo-card p {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .repo-stats {
         display: flex;
-        gap: 1.5rem;
-        margin: 1rem 0;
+        gap: 1rem;
+        margin: 0.5rem 0;
         color: var(--text-secondary);
-        justify-content: center;
+        justify-content: flex-start;
+        font-size: 0.75rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .repo-stats span {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.3rem;
     }
 
     .repo-link {
         display: inline-block;
-        padding: 0.8rem 1.5rem;
-        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-        color: var(--text-primary);
+        color: var(--primary-color);
         text-decoration: none;
-        border-radius: 25px;
-        transition: all 0.3s;
-        margin-top: 1rem;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+        margin-top: 0.5rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }
 
     .repo-link:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 216, 255, 0.3);
+        text-decoration: underline;
     }
 
     .notification {
