@@ -99,40 +99,8 @@ typeRole();
 // Contact form submission
 const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-
-    try {
-        const formData = new FormData(contactForm);
-        const response = await fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        const responseData = await response.json();
-        
-        if (response.ok) {
-            showNotification('Message sent successfully! I will get back to you soon.', 'success');
-            contactForm.reset();
-        } else {
-            throw new Error(responseData.error || 'Failed to send message');
-        }
-    } catch (error) {
-        console.error('Form submission error:', error);
-        showNotification('Failed to send message. Please try again later.', 'error');
-    } finally {
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-    }
-});
+// Contact form now submits natively to FormSubmit
+// No custom AJAX required
 
 // Notification system
 function showNotification(message, type = 'success') {
@@ -262,6 +230,7 @@ stars.forEach(star => {
 });
 
 function updateStars(rating) {
+    document.getElementById('rating-input').value = rating;
     stars.forEach(star => {
         const starRating = parseInt(star.dataset.rating);
         if (starRating <= rating) {
@@ -274,146 +243,11 @@ function updateStars(rating) {
     });
 }
 
-// Feedback API integration
-async function getFeedbackFromAPI() {
-    try {
-        const response = await fetch('/api/feedback');
-        if (!response.ok) throw new Error('Network response was not ok');
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching feedback:', error);
-        return [];
-    }
-}
-
-async function saveFeedbackToAPI(feedbackData) {
-    try {
-        const response = await fetch('/api/feedback', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(feedbackData)
-        });
-        if (!response.ok) throw new Error('Failed to save feedback');
-        return await response.json();
-    } catch (error) {
-        console.error('Error saving feedback:', error);
-        throw error;
-    }
-}
-
-// Feedback form submission
-const feedbackForm = document.getElementById('feedback-form');
-const feedbackList = document.createElement('div');
-feedbackList.className = 'feedback-list';
-document.querySelector('.feedback .rating-container').appendChild(feedbackList);
-
-feedbackForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (currentRating === 0) {
-        showNotification('Please select a rating', 'error');
-        return;
-    }
-
-    const message = feedbackForm.querySelector('textarea').value;
-    if (!message.trim()) {
-        showNotification('Please enter your feedback message', 'error');
-        return;
-    }
-    
-    const newFeedback = {
-        rating: currentRating,
-        message: message
-    };
-
-    const submitBtn = feedbackForm.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Submitting...';
-    submitBtn.disabled = true;
-
-    try {
-        await saveFeedbackToAPI(newFeedback);
-        feedbackForm.reset();
-        currentRating = 0;
-        updateStars(0);
-        await loadFeedback();
-        showNotification('Thank you for your feedback!', 'success');
-    } catch (error) {
-        showNotification('Error saving feedback', 'error');
-    } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
-
-// Load and display feedback
-let currentPage = 1;
-const feedbacksPerPage = 5;
-
-async function loadFeedback(page = 1) {
-    const allFeedback = await getFeedbackFromAPI();
-    
-    // Calculate pagination
-    const totalPages = Math.ceil(allFeedback.length / feedbacksPerPage);
-    const startIndex = (page - 1) * feedbacksPerPage;
-    const feedbackToShow = [...allFeedback].reverse();
-    
-    feedbackList.innerHTML = `
-        <h3>All Feedback (${allFeedback.length} total)</h3>
-        <div class="feedback-items"></div>
-        <div class="pagination">
-            ${page > 1 ? `<button onclick="loadFeedback(${page - 1})" class="page-btn">Previous</button>` : ''}
-            <span class="page-info">Page ${page} of ${Math.max(1, totalPages)}</span>
-            ${page < totalPages ? `<button onclick="loadFeedback(${page + 1})" class="page-btn">Next</button>` : ''}
-        </div>
-    `;
-
-    const feedbackItems = feedbackList.querySelector('.feedback-items');
-    
-    if (allFeedback.length === 0) {
-        feedbackItems.innerHTML = '<p class="no-feedback">Be the first to leave feedback!</p>';
-        return;
-    }
-
-    feedbackToShow.slice(startIndex, startIndex + feedbacksPerPage).forEach(item => {
-        const date = new Date(item.date).toLocaleDateString();
-        const stars = '⭐'.repeat(item.rating);
-        
-        const feedbackItem = document.createElement('div');
-        feedbackItem.className = 'feedback-item';
-        feedbackItem.innerHTML = `
-            <div class="feedback-rating">${stars}</div>
-            <div class="feedback-message">${item.message}</div>
-            <div class="feedback-date">${date}</div>
-        `;
-        feedbackItems.appendChild(feedbackItem);
-    });
-
-    // Add feedback statistics
-    if (allFeedback.length > 0) {
-        const avgRating = (allFeedback.reduce((sum, item) => sum + item.rating, 0) / allFeedback.length).toFixed(1);
-        const statsDiv = document.createElement('div');
-        statsDiv.className = 'feedback-stats';
-        statsDiv.innerHTML = `
-            <div class="stat-item">
-                <span class="stat-label">Average Rating</span>
-                <span class="stat-value">${avgRating} ⭐</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Total Feedback</span>
-                <span class="stat-value">${allFeedback.length}</span>
-            </div>
-        `;
-        feedbackList.insertBefore(statsDiv, feedbackList.firstChild);
-    }
-}
+// Feedback form will submit natively to FormSubmit
 
 // Initialize GitHub repos and feedback on page load
 document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubRepos();
-    loadFeedback();
 
     // Prevent body scroll when menu is open
     document.body.style.overflow = 'auto';
