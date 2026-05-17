@@ -3,257 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Nilesh Singh - Full Stack Developer Portfolio showcasing web development projects and services">
-    <meta name="theme-color" content="#1A1A1A">
-    <title>Nilesh's Portfolio</title>
+    <meta name="description" content="Nilesh Singh - Full Stack Developer Portfolio">
+    <meta name="theme-color" content="#0d1117">
+    <title>nilesh0002 (Nilesh Singh)</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="logo-initials">NS</span>
-            <span class="logo-text">Portfolio</span>
+    <header class="gh-header">
+        <div class="header-container">
+            <i class="fab fa-github logo-icon"></i>
+            <div class="header-search">
+                <input type="text" placeholder="Search or jump to...">
+            </div>
+            <nav class="header-nav">
+                <a href="#">Pull requests</a>
+                <a href="#">Issues</a>
+                <a href="#">Codespaces</a>
+                <a href="#">Marketplace</a>
+                <a href="#">Explore</a>
+            </nav>
         </div>
-        <div class="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="greeting">Hello, It's Me</p>
-                <h1>Nilesh Singh</h1>
-                <p class="role">And I'm a <span class="highlight">Full Stack Developer</span></p>
-                <p class="description">Passionate about creating innovative web solutions and turning ideas into reality through clean, efficient code.</p>
-                <div class="social-links">
-                    <a href="https://twitter.com/nil_esh__" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/nilesh0002" class="social-icon"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/nileshsingh98" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://api.whatsapp.com/send?phone=919801960622" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <a href="#contact" class="cta-button">Download CV</a>
-            </div>
-            <div class="hero-image">
-                <div class="hexagon-border">
-                    <img src="image/profile.jpg" alt="Nilesh Singh - Professional Portrait">
-                </div>
-            </div>
+    <div class="gh-tabs">
+        <div class="tabs-container">
+            <a href="#overview" class="active"><i class="fas fa-book-open"></i> Overview</a>
+            <a href="#repositories"><i class="fas fa-book"></i> Repositories</a>
+            <a href="#projects"><i class="fas fa-table"></i> Projects</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
         </div>
-    </section>
+    </div>
 
-    <section id="about" class="about">
-        <div class="about-content">
-            <div class="about-image">
-                <div class="hexagon-border">
-                    <img src="image/profile.jpg" alt="Nilesh Singh - Business Casual">
+    <main class="gh-main">
+        <aside class="gh-sidebar">
+            <img src="image/profile.jpg" alt="Nilesh Singh" class="avatar">
+            <h1 class="vcard-names">
+                <span class="p-name">Nilesh Singh</span>
+                <span class="p-nickname">nilesh0002</span>
+            </h1>
+            <div class="user-profile-bio">
+                Passionate Full Stack Developer creating innovative web solutions and turning ideas into reality through clean, efficient code.
+            </div>
+            <button class="gh-btn w-full mb-3">Edit profile</button>
+            <div class="vcard-details">
+                <div class="detail-item"><i class="fas fa-users"></i> <span>100</span> followers · <span>50</span> following</div>
+                <div class="detail-item"><i class="fas fa-envelope"></i> <a href="mailto:nilesh.singh0032@gmail.com">nilesh.singh0032@gmail.com</a></div>
+                <div class="detail-item"><i class="fab fa-twitter"></i> <a href="https://twitter.com/nil_esh__">@nil_esh__</a></div>
+                <div class="detail-item"><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/nileshsingh98">nileshsingh98</a></div>
+            </div>
+            
+            <div class="border-top pt-3 mt-3">
+                <h2 class="h4 mb-2">Skills</h2>
+                <div class="topic-tags">
+                    <span class="topic-tag">Python</span>
+                    <span class="topic-tag">JavaScript</span>
+                    <span class="topic-tag">HTML5</span>
+                    <span class="topic-tag">CSS3</span>
+                    <span class="topic-tag">C Language</span>
+                    <span class="topic-tag">DBMS</span>
                 </div>
             </div>
-            <div class="about-text">
-                <h2>About <span class="highlight">Me</span></h2>
-                <h3>Full Stack Developer!</h3>
-                <p>I am a passionate Full Stack Developer with expertise in modern web technologies. I specialize in creating responsive, user-friendly web applications that deliver exceptional user experiences. With a strong foundation in both frontend and backend development, I bring ideas to life through clean, efficient, and maintainable code.</p>
-                <a href="#contact" class="cta-button">Read More</a>
-            </div>
-        </div>
-    </section>
+        </aside>
 
-    <section id="stats" class="stats-bento">
-        <h2>Live <span class="highlight">Stats</span></h2>
-        <div class="bento-grid">
-            <!-- GitHub Stats -->
-            <div class="bento-card github-stats">
-                <div class="card-header">
-                    <i class="fab fa-github"></i>
-                    <h3>GitHub</h3>
+        <div class="gh-content">
+            <div id="overview" class="readme-box">
+                <div class="readme-header">
+                    <i class="fas fa-list-ul"></i> nilesh0002 / README.md
                 </div>
-                <div id="github-overview" class="stats-content">
-                    <div class="loader">Loading...</div>
+                <div class="readme-body markdown-body">
+                    <h1>Hi there 👋, I'm Nilesh</h1>
+                    <p>I am a passionate Full Stack Developer with expertise in modern web technologies. I specialize in creating responsive, user-friendly web applications that deliver exceptional user experiences.</p>
+                    <ul>
+                        <li>🔭 I’m currently working on web development</li>
+                        <li>🌱 I’m currently learning advanced software architectures</li>
+                        <li>💬 Ask me about Python, JavaScript, and Databases</li>
+                        <li>📫 How to reach me: see the contact form below!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stats-section mt-4">
+                <h2 class="f4 mb-3">Developer Stats</h2>
+                <div class="bento-grid">
+                    <!-- GitHub Stats -->
+                    <div class="bento-card">
+                        <div class="card-header">
+                            <i class="fab fa-github"></i>
+                            <h3>GitHub</h3>
+                        </div>
+                        <div id="github-overview" class="stats-content"></div>
+                    </div>
+                    
+                    <!-- LeetCode Stats -->
+                    <div class="bento-card">
+                        <div class="card-header">
+                            <i class="fas fa-code"></i>
+                            <h3>LeetCode</h3>
+                        </div>
+                        <div id="leetcode-overview" class="stats-content"></div>
+                    </div>
+
+                    <!-- GFG Stats -->
+                    <div class="bento-card">
+                        <div class="card-header">
+                            <i class="fas fa-laptop-code"></i>
+                            <h3>GeeksforGeeks</h3>
+                        </div>
+                        <div id="gfg-overview" class="stats-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="repositories" class="repos-section mt-4">
+                <h2 class="f4 mb-3">Popular repositories</h2>
+                <div id="github-repos" class="repos-grid"></div>
+            </div>
+
+            <div class="interaction-section mt-4" style="display: flex; gap: 20px;">
+                <div id="feedback" class="gh-panel" style="flex: 1;">
+                    <div class="panel-header">Leave Feedback</div>
+                    <div class="panel-body">
+                        <form id="feedback-form" action="https://formsubmit.co/nilesh.singh0032@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="New Portfolio Feedback!">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" id="rating-input" name="rating" value="0">
+                            
+                            <div class="stars mb-3">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <textarea name="message" class="gh-input w-full" rows="3" placeholder="Leave a comment..." required></textarea>
+                            </div>
+                            <button type="submit" class="gh-btn gh-btn-primary">Comment</button>
+                        </form>
+                        <div class="feedback-rating-container mt-4">
+                            <!-- JS appends feedback list here, though currently broken if missing in script -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contact" class="gh-panel" style="flex: 1;">
+                    <div class="panel-header">Contact Me</div>
+                    <div class="panel-body">
+                        <form id="contact-form" action="https://formsubmit.co/nilesh.singh0032@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="New Contact Message!">
+                            <input type="hidden" name="_captcha" value="false">
+                            
+                            <div class="form-group mb-3">
+                                <label class="gh-label">Name</label>
+                                <input type="text" name="name" class="gh-input w-full" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="gh-label">Email</label>
+                                <input type="email" name="email" class="gh-input w-full" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="gh-label">Message</label>
+                                <textarea name="message" class="gh-input w-full" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="gh-btn gh-btn-primary">Send Message</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             
-            <!-- LeetCode Stats -->
-            <div class="bento-card leetcode-stats">
-                <div class="card-header">
-                    <i class="fas fa-code"></i>
-                    <h3>LeetCode</h3>
-                </div>
-                <div id="leetcode-overview" class="stats-content">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
+            <!-- Hidden container required by script.js -->
+            <div class="feedback" style="display:none;"><div class="rating-container"></div></div>
 
-            <!-- GFG / Custom Stats -->
-            <div class="bento-card gfg-stats">
-                <div class="card-header">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>GeeksforGeeks</h3>
-                </div>
-                <div id="gfg-overview" class="stats-content">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
-            
-            <!-- Top Repos -->
-            <div class="bento-card top-repos">
-                <div class="card-header">
-                    <i class="fas fa-star"></i>
-                    <h3>Top Repositories</h3>
-                </div>
-                <div id="github-repos" class="repos-grid">
-                    <div class="loader">Loading...</div>
-                </div>
+        </div>
+    </main>
+
+    <footer class="gh-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <i class="fab fa-github"></i>
+                <span>© 2024 Nilesh Singh</span>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">Security</a>
+                <a href="#">Status</a>
+                <a href="#">Docs</a>
             </div>
         </div>
-    </section>
-
-    <section id="skills" class="skills">
-        <h2>My <span class="highlight">Skills</span></h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <i class="fab fa-python"></i>
-                <h3>Python</h3>
-                <p>Proficient in Python programming with experience in web development, data analysis, and automation. Strong understanding of Python frameworks and libraries.</p>
-                <div class="skill-level">
-                    <div class="skill-bar" style="width: 90%"></div>
-                </div>
-            </div>
-            <div class="skill-card">
-                <i class="fab fa-html5"></i>
-                <h3>HTML5 & CSS3</h3>
-                <p>Expert in creating responsive and modern web layouts using HTML5 and CSS3. Skilled in flexbox, grid, and modern CSS features.</p>
-                <div class="skill-level">
-                    <div class="skill-bar" style="width: 95%"></div>
-                </div>
-            </div>
-            <div class="skill-card">
-                <i class="fab fa-js"></i>
-                <h3>JavaScript</h3>
-                <p>Strong command over JavaScript, including modern ES6+ features. Experience with DOM manipulation and interactive web applications.</p>
-                <div class="skill-level">
-                    <div class="skill-bar" style="width: 85%"></div>
-                </div>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-code"></i>
-                <h3>C Language</h3>
-                <p>Strong foundation in C programming with understanding of memory management, data structures, and algorithms.</p>
-                <div class="skill-level">
-                    <div class="skill-bar" style="width: 88%"></div>
-                </div>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-database"></i>
-                <h3>DBMS</h3>
-                <p>Proficient in database management systems, SQL, and database design principles. Experience with various database technologies.</p>
-                <div class="skill-level">
-                    <div class="skill-bar" style="width: 92%"></div>
-                </div>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Web Development</h3>
-                <p>Full-stack web development capabilities with modern technologies and frameworks. Focus on creating responsive and user-friendly applications.</p>
-                <div class="skill-level">
-                    <div class="skill-bar" style="width: 90%"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <h2>Latest <span class="highlight">Projects</span></h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <img src="image/ima.png" alt="Portfolio Website Project">
-                <div class="project-info">
-                    <h3>Modern Portfolio Website</h3>
-                    <p>A clean and responsive portfolio website with modern UI design and smooth animations.</p>
-                    <a href="https://github.com/nilesh0002/portfolio" class="learn-more" target="_blank">
-                        <i class="fab fa-github"></i> Source Code
-                    </a>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="project2.jpg" alt="Project 2">
-                <div class="project-info">
-                    <h3>App Design</h3>
-                    <p>Project description goes here</p>
-                    <a href="#" class="learn-more">Learn more</a>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="project3.jpg" alt="Project 3">
-                <div class="project-info">
-                    <h3>Digital Marketing</h3>
-                    <p>Project description goes here</p>
-                    <a href="#" class="learn-more">Learn more</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="feedback" class="feedback">
-        <h2>Leave <span class="highlight">Feedback</span></h2>
-        <div class="feedback-container">
-            <div class="rating-container">
-                <form id="feedback-form" class="feedback-form" action="https://formsubmit.co/nilesh.singh0032@gmail.com" method="POST">
-                    <input type="hidden" name="_subject" value="New Portfolio Feedback!">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" id="rating-input" name="rating" value="0">
-                    <div class="stars">
-                        <i class="far fa-star" data-rating="1"></i>
-                        <i class="far fa-star" data-rating="2"></i>
-                        <i class="far fa-star" data-rating="3"></i>
-                        <i class="far fa-star" data-rating="4"></i>
-                        <i class="far fa-star" data-rating="5"></i>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="feedback-message" name="message" placeholder="Share your experience..." required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Feedback</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <h2>Contact <span class="highlight">Me!</span></h2>
-        <div class="contact-form">
-            <form id="contact-form" action="https://formsubmit.co/nilesh.singh0032@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="New Contact Message!">
-                <input type="hidden" name="_captcha" value="false">
-                <div class="form-group">
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-                </div>
-                <!-- Honeypot field to prevent spam -->
-                <input type="text" name="_gotcha" style="display: none;">
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Nilesh's Portfolio. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
