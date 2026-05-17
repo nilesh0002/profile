@@ -7,16 +7,17 @@
 }
 
 :root {
-    --primary-color: #00E2FF;
-    --secondary-color: #845EF7;
-    --accent-color: #FF3366;
-    --logo-primary: #FF3366;
-    --logo-secondary: #FF6B6B;
-    --dark-bg: #0A0A0A;
-    --darker-bg: #050505;
-    --card-bg: #111111;
-    --text-primary: #FFFFFF;
-    --text-secondary: #CCCCCC;
+    --primary-color: #58a6ff;
+    --secondary-color: #238636;
+    --accent-color: #f85149;
+    --logo-primary: #58a6ff;
+    --logo-secondary: #79c0ff;
+    --dark-bg: #0d1117;
+    --darker-bg: #010409;
+    --card-bg: #161b22;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
     --transition-speed: 0.3s;
     --gradient-primary: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     --gradient-logo: linear-gradient(45deg, var(--logo-primary), var(--logo-secondary));
@@ -1759,58 +1760,38 @@ footer {
 
 .bento-card {
     background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
-    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px; /* GitHub uses smaller border radius */
+    padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
 }
 
-.bento-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top right, rgba(0, 226, 255, 0.1), transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
 .bento-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(0, 226, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 226, 255, 0.1);
-}
-
-.bento-card:hover::before {
-    opacity: 1;
+    border-color: var(--text-secondary);
 }
 
 .card-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
 }
 
 .card-header i {
-    font-size: 2rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
 }
 
 .card-header h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
     margin: 0;
+    color: var(--text-primary);
 }
 
 .stats-content {
@@ -1818,16 +1799,14 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    z-index: 1;
 }
 
 .stat-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .stat-row:last-child {
@@ -1836,12 +1815,13 @@ footer {
 
 .stat-row span:first-child {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .stat-row span:last-child {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.2rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
 }
