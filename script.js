@@ -73,7 +73,6 @@ function showNotification(message, type = 'success') {
 // Usernames for API fetching
 const GITHUB_USERNAME = 'nilesh0002';
 const LEETCODE_USERNAME = 'nilesh0002'; // Change if different
-const GFG_USERNAME = 'nileshsingh98'; // Change if different
 
 // Fetch GitHub Stats
 async function fetchGitHubStats() {
@@ -131,69 +130,32 @@ async function fetchGitHubStats() {
 // Fetch LeetCode Stats
 async function fetchLeetCodeStats() {
     try {
-        const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${LEETCODE_USERNAME}`);
+        const response = await fetch(`https://alfa-leetcode-api.onrender.com/${LEETCODE_USERNAME}/solved`);
+        if (!response.ok) throw new Error('API failed');
         const data = await response.json();
         
-        if (data.status === 'success') {
-            document.getElementById('leetcode-overview').innerHTML = `
-                <div class="stat-row">
-                    <span>Total Solved</span>
-                    <span style="color: #FFA116">${data.totalSolved || 0}</span>
-                </div>
-                <div class="stat-row">
-                    <span>Easy</span>
-                    <span style="color: #00B8A3">${data.easySolved || 0}</span>
-                </div>
-                <div class="stat-row">
-                    <span>Medium</span>
-                    <span style="color: #FFC01E">${data.mediumSolved || 0}</span>
-                </div>
-                <div class="stat-row">
-                    <span>Hard</span>
-                    <span style="color: #EF4743">${data.hardSolved || 0}</span>
-                </div>
-            `;
-        } else {
-            throw new Error('User not found');
-        }
+        document.getElementById('leetcode-overview').innerHTML = `
+            <div class="stat-row">
+                <span>Total Solved</span>
+                <span style="color: #FFA116">${data.solvedProblem || 0}</span>
+            </div>
+            <div class="stat-row">
+                <span>Easy</span>
+                <span style="color: #00B8A3">${data.easySolved || 0}</span>
+            </div>
+            <div class="stat-row">
+                <span>Medium</span>
+                <span style="color: #FFC01E">${data.mediumSolved || 0}</span>
+            </div>
+            <div class="stat-row">
+                <span>Hard</span>
+                <span style="color: #EF4743">${data.hardSolved || 0}</span>
+            </div>
+        `;
     } catch (error) {
         console.error('Error fetching LeetCode stats:', error);
         document.getElementById('leetcode-overview').innerHTML = `
-            <div class="stat-row"><span>Total Solved</span><span style="color: #FFA116">350+</span></div>
-            <div class="stat-row"><span>Global Rank</span><span>Top 10%</span></div>
-        `;
-    }
-}
-
-// Fetch GeeksforGeeks Stats (Fallback if API fails)
-async function fetchGFGStats() {
-    try {
-        // Unofficial API for GFG
-        const response = await fetch(`https://geeks-for-geeks-api.vercel.app/${GFG_USERNAME}`);
-        if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
-        
-        document.getElementById('gfg-overview').innerHTML = `
-            <div class="stat-row">
-                <span>Institution Rank</span>
-                <span style="color: #2F8D46">${data.info.institutionRank || 'N/A'}</span>
-            </div>
-            <div class="stat-row">
-                <span>Total Problems</span>
-                <span style="color: #2F8D46">${data.info.totalProblemsSolved || 0}</span>
-            </div>
-            <div class="stat-row">
-                <span>Coding Score</span>
-                <span style="color: #2F8D46">${data.info.codingScore || 0}</span>
-            </div>
-        `;
-    } catch (error) {
-        console.error('Error fetching GFG stats:', error);
-        // Fallback impressive stats if API is down
-        document.getElementById('gfg-overview').innerHTML = `
-            <div class="stat-row"><span>Total Problems</span><span style="color: #2F8D46">200+</span></div>
-            <div class="stat-row"><span>Coding Score</span><span style="color: #2F8D46">1500+</span></div>
-            <div class="stat-row"><span>Focus</span><span style="color: #2F8D46">DSA</span></div>
+            <p class="error" style="color: var(--gh-text-secondary); text-align: center;">Failed to load LeetCode data</p>
         `;
     }
 }
@@ -237,7 +199,6 @@ function updateStars(rating) {
 document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubStats();
     fetchLeetCodeStats();
-    fetchGFGStats();
 
     // Prevent body scroll removed because we don't have a mobile menu popup anymore.
 
