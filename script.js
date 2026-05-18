@@ -185,19 +185,7 @@ async function fetchGFGStats() {
     } catch (error) {
         console.error('Error fetching GFG stats:', error);
         document.getElementById('gfg-overview').innerHTML = `
-            <div class="stat-row">
-                <span>Total Solved</span>
-                <span style="color: #2ea043">150+</span>
-            </div>
-            <div class="stat-row">
-                <span>Coding Score</span>
-                <span style="color: #58a6ff">800+</span>
-            </div>
-            <div class="stat-row">
-                <span>Overall Rank</span>
-                <span style="color: #f78166">1200</span>
-            </div>
-            <p style="font-size:10px; color:var(--gh-text-secondary); text-align:center; margin-top:5px;">(Placeholder Data)</p>
+            <p class="error" style="color: var(--gh-text-secondary); text-align: center;">Failed to load GeeksforGeeks data</p>
         `;
     }
 }
