@@ -199,7 +199,10 @@
                         ${repo.language ? `<span><span class="lang-dot" style="background:${langColors[repo.language] || '#8b949e'}"></span> ${repo.language}</span>` : ''}
                         <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
                         <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
-                        <span style="margin-left:auto;"><a href="${repo.html_url}" target="_blank" class="gh-btn" style="font-size:11px; padding: 2px 10px;">View</a></span>
+                        <span style="margin-left:auto; display:flex; gap:8px;">
+                            ${repo.homepage ? `<a href="${repo.homepage.startsWith('http') ? repo.homepage : 'https://' + repo.homepage}" target="_blank" class="gh-btn gh-btn-primary" style="font-size:11px; padding: 2px 10px;"><i class="fas fa-external-link-alt" style="margin-right:4px;"></i>Demo</a>` : ''}
+                            <a href="${repo.html_url}" target="_blank" class="gh-btn" style="font-size:11px; padding: 2px 10px;">View</a>
+                        </span>
                     </div>
                 </div>
             `).join('');
