@@ -168,7 +168,9 @@ a:hover {
 .gh-sidebar {
     width: 296px;
     flex-shrink: 0;
-    margin-top: -32px;
+    margin-top: -48px;
+    position: relative;
+    z-index: 10;
 }
 
 .avatar {
@@ -178,8 +180,10 @@ a:hover {
     border: 1px solid var(--gh-border);
     margin-bottom: 16px;
     object-fit: cover;
-    z-index: 4;
+    z-index: 10;
     position: relative;
+    background-color: var(--gh-bg);
+    box-shadow: 0 0 0 4px var(--gh-bg);
 }
 
 .vcard-names {
