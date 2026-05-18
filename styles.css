@@ -128,7 +128,7 @@ a:hover {
     margin: 0 auto;
     display: flex;
     gap: 24px;
-    padding: 0 32px 0 360px; /* Offset for sidebar (32px padding + 296px sidebar + 32px gap) */
+    padding: 0 32px 0 284px; /* Offset for sidebar (32px padding + 220px sidebar + 32px gap) */
 }
 
 .tabs-container a {
@@ -165,7 +165,7 @@ a:hover {
 
 /* Sidebar */
 .gh-sidebar {
-    width: 296px;
+    width: 220px;
     flex-shrink: 0;
     margin-top: 0;
     position: relative;
@@ -173,16 +173,14 @@ a:hover {
 }
 
 .avatar {
-    width: 296px;
-    height: 296px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     border: 3px solid var(--gh-border);
     margin-bottom: 16px;
     object-fit: cover;
-    object-position: center top;
+    object-position: center center;
     display: block;
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
 }
 
 .vcard-names {
