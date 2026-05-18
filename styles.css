@@ -189,7 +189,7 @@ a:hover {
     object-fit: cover;
     object-position: center center;
     display: block;
-    transform: scale(1.6) translateY(5%);
+    transform: scale(2.4) translateY(8%);
     transform-origin: center center;
 }
 
