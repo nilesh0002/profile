@@ -160,6 +160,48 @@ async function fetchLeetCodeStats() {
     }
 }
 
+// Fetch GeeksforGeeks Stats
+async function fetchGFGStats() {
+    try {
+        // Try a known community API if it works, otherwise fall to placeholder
+        const response = await fetch('https://geeks-for-geeks-api-two.vercel.app/v1/geeksforgeeks/nilesh0002');
+        if (!response.ok) throw new Error('API failed');
+        const data = await response.json();
+        
+        document.getElementById('gfg-overview').innerHTML = `
+            <div class="stat-row">
+                <span>Total Solved</span>
+                <span style="color: #2ea043">${data.info.totalProblemsSolved || 0}</span>
+            </div>
+            <div class="stat-row">
+                <span>Coding Score</span>
+                <span style="color: #58a6ff">${data.info.codingScore || 0}</span>
+            </div>
+            <div class="stat-row">
+                <span>Institute Rank</span>
+                <span style="color: #f78166">${data.info.instituteRank || '-'}</span>
+            </div>
+        `;
+    } catch (error) {
+        console.error('Error fetching GFG stats:', error);
+        document.getElementById('gfg-overview').innerHTML = `
+            <div class="stat-row">
+                <span>Total Solved</span>
+                <span style="color: #2ea043">150+</span>
+            </div>
+            <div class="stat-row">
+                <span>Coding Score</span>
+                <span style="color: #58a6ff">800+</span>
+            </div>
+            <div class="stat-row">
+                <span>Overall Rank</span>
+                <span style="color: #f78166">1200</span>
+            </div>
+            <p style="font-size:10px; color:var(--gh-text-secondary); text-align:center; margin-top:5px;">(Placeholder Data)</p>
+        `;
+    }
+}
+
 // Star rating functionality
 const stars = document.querySelectorAll('.stars i');
 let currentRating = 0;
@@ -199,7 +241,42 @@ function updateStars(rating) {
 document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubStats();
     fetchLeetCodeStats();
+    fetchGFGStats();
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        const themeIcon = themeToggle.querySelector('i');
+        const githubStreak = document.getElementById('github-streak');
+
+        function setTheme(isLight) {
+            if (isLight) {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                if (githubStreak) githubStreak.src = "https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=default&hide_border=true&background=ffffff&ring=0969da&fire=0969da&currStreakNum=24292f";
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                if (githubStreak) githubStreak.src = "https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=dark&hide_border=true&background=0d1117&ring=58a6ff&fire=58a6ff&currStreakNum=c9d1d9";
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            setTheme(true);
+        }
+
+        themeToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isLight = document.documentElement.hasAttribute('data-theme');
+            setTheme(!isLight);
+        });
+    }
 
     // Prevent body scroll removed because we don't have a mobile menu popup anymore.
-
-// Touch ripples removed as it conflicts with the flat aesthetic of GitHub 
+});
