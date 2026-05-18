@@ -123,7 +123,10 @@ async function fetchGitHubStats() {
                     <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
                     <span><i class="fas fa-code"></i> ${repo.language || 'Code'}</span>
                 </div>
-                <a href="${repo.html_url}" target="_blank" class="repo-link">View Repo</a>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <a href="${repo.html_url}" target="_blank" class="repo-link">View Repo</a>
+                    ${repo.homepage ? `<a href="${repo.homepage.startsWith('http') ? repo.homepage : 'https://' + repo.homepage}" target="_blank" class="repo-link" style="color:var(--gh-primary-bg);">Live Demo</a>` : ''}
+                </div>
             `;
             repoContainer.appendChild(repoCard);
         });
