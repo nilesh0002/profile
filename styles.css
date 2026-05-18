@@ -179,10 +179,7 @@ a:hover {
     border: 1px solid var(--gh-border);
     margin-bottom: 16px;
     object-fit: cover;
-    z-index: 10;
-    position: relative;
-    background-color: var(--gh-bg);
-    box-shadow: 0 0 0 4px var(--gh-bg);
+    display: block;
 }
 
 .vcard-names {
