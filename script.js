@@ -86,7 +86,7 @@ async function fetchGitHubStats() {
         const user = await userRes.json();
         const repos = await reposRes.json();
 
-        // Populate Overview
+        // Populate Overview bento card
         document.getElementById('github-overview').innerHTML = `
             <div class="stat-row">
                 <span>Public Repos</span>
@@ -101,6 +101,12 @@ async function fetchGitHubStats() {
                 <span>${user.following || 0}</span>
             </div>
         `;
+
+        // Populate sidebar live follower / following count
+        const ghFollowers = document.getElementById('gh-followers');
+        const ghFollowing = document.getElementById('gh-following');
+        if (ghFollowers) ghFollowers.textContent = user.followers || 0;
+        if (ghFollowing) ghFollowing.textContent = user.following || 0;
 
         // Populate Top Repos
         const repoContainer = document.getElementById('github-repos');
