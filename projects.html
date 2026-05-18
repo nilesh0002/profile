@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nilesh Singh - Projects">
+    <title>Projects · nilesh0002</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .projects-page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .project-page-card {
+            border: 1px solid var(--gh-border);
+            border-radius: 8px;
+            padding: 24px;
+            background: var(--gh-panel-bg);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .project-page-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gh-link);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .project-icon {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        .project-page-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gh-link);
+        }
+        .project-page-desc {
+            font-size: 13px;
+            color: var(--gh-text-secondary);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        .project-tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tech-badge {
+            background: rgba(88,166,255,0.1);
+            color: var(--gh-link);
+            border: 1px solid rgba(88,166,255,0.2);
+            padding: 2px 10px;
+            border-radius: 2em;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .project-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .page-header {
+            border-bottom: 1px solid var(--gh-border);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .page-subtitle {
+            color: var(--gh-text-secondary);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <header class="gh-header">
+        <div class="header-container">
+            <a href="index.html"><i class="fab fa-github logo-icon"></i></a>
+            <nav class="header-nav">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="gh-tabs">
+        <div class="tabs-container" style="padding-left: 32px;">
+            <a href="index.html"><i class="fas fa-book-open"></i> Overview</a>
+            <a href="repositories.html"><i class="fas fa-book"></i> Repositories</a>
+            <a href="projects.html" class="active"><i class="fas fa-table"></i> Projects</a>
+            <a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </div>
+
+    <main style="max-width: 1280px; margin: 0 auto; padding: 32px;">
+        <div class="page-header">
+            <h1 class="f4"><i class="fas fa-table" style="margin-right: 8px;"></i>Featured Projects</h1>
+            <p class="page-subtitle">A collection of projects I've built — spanning ML, web development, and more.</p>
+        </div>
+
+        <div class="projects-page-grid">
+            <div class="project-page-card">
+                <div class="project-icon">✈️</div>
+                <div class="project-page-title">Flight Price Predictor</div>
+                <p class="project-page-desc">
+                    A full-stack ML-powered application that predicts flight ticket prices based on route, date, airline, and other parameters. Features a React frontend, FastAPI backend, and a scikit-learn regression model trained on real-world data.
+                </p>
+                <div class="project-tech-stack">
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">FastAPI</span>
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">scikit-learn</span>
+                    <span class="tech-badge">Render</span>
+                </div>
+                <div class="project-btns">
+                    <a href="https://github.com/nilesh0002" target="_blank" class="gh-btn"><i class="fab fa-github" style="margin-right:5px;"></i>Code</a>
+                    <a href="#" target="_blank" class="gh-btn gh-btn-primary"><i class="fas fa-external-link-alt" style="margin-right:5px;"></i>Live Demo</a>
+                </div>
+            </div>
+
+            <div class="project-page-card">
+                <div class="project-icon">🌐</div>
+                <div class="project-page-title">Personal Portfolio</div>
+                <p class="project-page-desc">
+                    This very portfolio website! Built with pure HTML, CSS, and JavaScript in a GitHub-inspired dark mode design. Features live GitHub, LeetCode, and GeeksforGeeks stats fetched from real APIs, a theme toggle, and a working contact form.
+                </p>
+                <div class="project-tech-stack">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">GitHub API</span>
+                    <span class="tech-badge">FormSubmit</span>
+                </div>
+                <div class="project-btns">
+                    <a href="https://github.com/nilesh0002" target="_blank" class="gh-btn"><i class="fab fa-github" style="margin-right:5px;"></i>Code</a>
+                    <a href="index.html" class="gh-btn gh-btn-primary"><i class="fas fa-eye" style="margin-right:5px;"></i>You're Here!</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 32px; padding: 20px; border: 1px dashed var(--gh-border); border-radius: 8px; text-align: center; color: var(--gh-text-secondary);">
+            <i class="fas fa-code" style="font-size: 24px; margin-bottom: 8px; display: block;"></i>
+            More projects coming soon — check my <a href="repositories.html">Repositories</a> for all my work on GitHub.
+        </div>
+    </main>
+
+    <footer class="gh-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <i class="fab fa-github"></i>
+                <span>© 2025 Nilesh Singh</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.hasAttribute('data-theme');
+            if (isLight) {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
