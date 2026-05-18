@@ -176,10 +176,13 @@ a:hover {
     width: 296px;
     height: 296px;
     border-radius: 50%;
-    border: 1px solid var(--gh-border);
+    border: 3px solid var(--gh-border);
     margin-bottom: 16px;
     object-fit: cover;
+    object-position: center top;
     display: block;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
 }
 
 .vcard-names {
