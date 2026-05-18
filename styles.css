@@ -79,7 +79,7 @@ a:hover {
 
 .logo-icon {
     font-size: 32px;
-    color: #ffffff;
+    color: var(--gh-text-primary);
 }
 
 
@@ -87,21 +87,22 @@ a:hover {
     display: flex;
     gap: 16px;
     align-items: center;
+    margin-left: auto;
 }
 
 .header-nav a {
-    color: #ffffff;
+    color: var(--gh-text-primary);
     font-weight: 600;
 }
 .header-nav a:hover {
-    color: rgba(255,255,255,0.7);
+    color: var(--gh-text-secondary);
     text-decoration: none;
 }
 
 .theme-toggle {
     background: none;
     border: none;
-    color: #ffffff;
+    color: var(--gh-text-primary);
     cursor: pointer;
     font-size: 16px;
     display: flex;
@@ -112,7 +113,7 @@ a:hover {
 }
 
 .theme-toggle:hover {
-    color: rgba(255,255,255,0.7);
+    color: var(--gh-text-secondary);
 }
 
 /* Tabs */
