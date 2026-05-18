@@ -72,7 +72,8 @@ function showNotification(message, type = 'success') {
 
 // Usernames for API fetching
 const GITHUB_USERNAME = 'nilesh0002';
-const LEETCODE_USERNAME = 'nilesh0002'; // Change if different
+const LEETCODE_USERNAME = 'nilesh0002';
+const GFG_USERNAME = 'nilesh98';
 
 // Fetch GitHub Stats
 async function fetchGitHubStats() {
@@ -164,7 +165,7 @@ async function fetchLeetCodeStats() {
 async function fetchGFGStats() {
     try {
         // Try a known community API if it works, otherwise fall to placeholder
-        const response = await fetch('https://geeks-for-geeks-api-two.vercel.app/v1/geeksforgeeks/nilesh0002');
+        const response = await fetch(`https://geeks-for-geeks-api-two.vercel.app/v1/geeksforgeeks/${GFG_USERNAME}`);
         if (!response.ok) throw new Error('API failed');
         const data = await response.json();
         
