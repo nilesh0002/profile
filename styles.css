@@ -546,10 +546,57 @@ a:hover {
 .notification.show { bottom: 20px; }
 
 @media (max-width: 768px) {
-    .gh-main { flex-direction: column; }
-    .tabs-container { padding-left: 32px; }
-    .gh-sidebar { width: 100%; margin-top: 0; }
-    .repos-grid { grid-template-columns: 1fr; }
-    .bento-grid { grid-template-columns: 1fr; }
-    .interaction-section { flex-direction: column; }
+    /* Main Layout */
+    .gh-main { 
+        flex-direction: column; 
+        padding: 16px; 
+    }
+    
+    /* Tabs Scrollable on Mobile */
+    .tabs-container { 
+        padding-left: 16px; 
+        padding-right: 16px;
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: none; /* Firefox */
+        gap: 16px;
+    }
+    .tabs-container::-webkit-scrollbar { 
+        display: none; /* Chrome/Safari */
+    }
+    .tabs-container a {
+        white-space: nowrap;
+    }
+    
+    /* Sidebar & Avatar */
+    .gh-sidebar { 
+        width: 100%; 
+        margin-top: 0; 
+    }
+    .avatar-wrapper {
+        width: 140px;
+        height: 140px;
+    }
+    .vcard-names {
+        margin-bottom: 12px;
+    }
+    
+    /* Grids */
+    .repos-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .bento-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .interaction-section { 
+        flex-direction: column; 
+    }
+    
+    /* Footer */
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        line-height: 1.8;
+    }
 }
