@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nilesh Singh - Education">
+    <title>Education · nilesh0002</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="gh-header">
+        <div class="header-container">
+            <a href="index.html"><i class="fab fa-github logo-icon"></i></a>
+            <nav class="header-nav">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="gh-tabs">
+        <div class="tabs-container" style="padding-left: 32px;">
+            <a href="index.html"><i class="fas fa-book-open"></i> Overview</a>
+            <a href="repositories.html"><i class="fas fa-book"></i> Repositories</a>
+            <a href="projects.html"><i class="fas fa-table"></i> Projects</a>
+            <a href="education.html" class="active"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </div>
+
+    <main style="max-width: 1280px; margin: 0 auto; padding: 32px;">
+        <div style="border-bottom: 1px solid var(--gh-border); padding-bottom: 16px; margin-bottom: 28px;">
+            <h1 class="f4"><i class="fas fa-graduation-cap" style="margin-right: 8px;"></i>Education Background</h1>
+            <p style="color: var(--gh-text-secondary); font-size: 13px; margin-top: 6px;">
+                My academic journey, qualifications, and core coursework.
+            </p>
+        </div>
+
+        <div class="education-section mt-4" style="max-width: 800px;">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon active">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <div class="timeline-title" style="font-size: 16px;">Bachelor of Technology in Computer Science and Engineering</div>
+                                <div class="timeline-subtitle" style="font-size: 14px; margin-top: 4px;">University Name</div>
+                            </div>
+                            <div class="timeline-date">2021 - 2025</div>
+                        </div>
+                        <div class="timeline-body">
+                            <p style="margin-bottom: 12px;">Currently pursuing my B.Tech degree with a focus on Full Stack Development and Machine Learning.</p>
+                            <h4 style="font-size: 13px; margin-bottom: 8px; color: var(--gh-text-secondary);">Relevant Coursework:</h4>
+                            <div class="topic-tags">
+                                <span class="topic-tag">Data Structures</span>
+                                <span class="topic-tag">Algorithms</span>
+                                <span class="topic-tag">Operating Systems</span>
+                                <span class="topic-tag">Database Management</span>
+                                <span class="topic-tag">Computer Networks</span>
+                                <span class="topic-tag">Machine Learning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <div class="timeline-title" style="font-size: 16px;">Higher Secondary Education (Class XII)</div>
+                                <div class="timeline-subtitle" style="font-size: 14px; margin-top: 4px;">Science Stream (PCM)</div>
+                            </div>
+                            <div class="timeline-date">2019 - 2021</div>
+                        </div>
+                        <div class="timeline-body">
+                            Completed 12th grade with a strong foundation in Mathematics, Physics, and Chemistry. Developed an early interest in logical problem solving and programming.
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div>
+                                <div class="timeline-title" style="font-size: 16px;">Secondary Education (Class X)</div>
+                                <div class="timeline-subtitle" style="font-size: 14px; margin-top: 4px;">High School</div>
+                            </div>
+                            <div class="timeline-date">2019</div>
+                        </div>
+                        <div class="timeline-body">
+                            Completed high school with excellent academic performance, building a strong base in core subjects.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="gh-footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <i class="fab fa-github"></i>
+                <span>© 2025 Nilesh Singh</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.hasAttribute('data-theme');
+            if (isLight) {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
