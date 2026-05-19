@@ -477,6 +477,115 @@ a:hover {
     color: var(--gh-text-secondary);
 }
 
+/* Timeline / Education */
+.timeline {
+    position: relative;
+    padding-left: 24px;
+    margin-top: 16px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 0;
+    left: 7px;
+    width: 2px;
+    background-color: var(--gh-border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--gh-bg);
+    border: 2px solid var(--gh-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+}
+
+.timeline-icon.active {
+    border-color: var(--gh-link);
+    background-color: var(--gh-link);
+}
+
+.timeline-icon i {
+    font-size: 8px;
+    color: var(--gh-bg);
+    display: none;
+}
+.timeline-icon.active i {
+    display: block;
+}
+
+.timeline-content {
+    background-color: var(--gh-panel-bg);
+    border: 1px solid var(--gh-border);
+    border-radius: 6px;
+    padding: 16px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-content:hover {
+    border-color: var(--gh-text-secondary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+    .timeline-header {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+.timeline-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gh-text-primary);
+}
+
+.timeline-subtitle {
+    font-size: 12px;
+    color: var(--gh-text-secondary);
+    margin-top: 2px;
+}
+
+.timeline-date {
+    font-size: 12px;
+    color: var(--gh-text-secondary);
+    white-space: nowrap;
+    background-color: rgba(139, 148, 158, 0.1);
+    padding: 2px 8px;
+    border-radius: 2em;
+}
+
+.timeline-body {
+    font-size: 13px;
+    color: var(--gh-text-primary);
+    line-height: 1.5;
+    margin-top: 8px;
+}
 
 /* Feedback / Contact Panels */
 .gh-panel {
