@@ -110,26 +110,28 @@ async function fetchGitHubStats() {
 
         // Populate Top Repos
         const repoContainer = document.getElementById('github-repos');
-        repoContainer.innerHTML = '';
+        if (repoContainer) {
+            repoContainer.innerHTML = '';
 
-        repos.forEach(repo => {
-            const repoCard = document.createElement('div');
-            repoCard.className = 'repo-card';
-            repoCard.innerHTML = `
-                <h3>${repo.name}</h3>
-                <p>${repo.description ? repo.description.substring(0, 60) + '...' : 'No description'}</p>
-                <div class="repo-stats">
-                    <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
-                    <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
-                    <span><i class="fas fa-code"></i> ${repo.language || 'Code'}</span>
-                </div>
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <a href="${repo.html_url}" target="_blank" class="repo-link">View Repo</a>
-                    ${repo.homepage ? `<a href="${repo.homepage.startsWith('http') ? repo.homepage : 'https://' + repo.homepage}" target="_blank" class="repo-link" style="color:var(--gh-primary-bg);">Live Demo</a>` : ''}
-                </div>
-            `;
-            repoContainer.appendChild(repoCard);
-        });
+            repos.forEach(repo => {
+                const repoCard = document.createElement('div');
+                repoCard.className = 'repo-card';
+                repoCard.innerHTML = `
+                    <h3>${repo.name}</h3>
+                    <p>${repo.description ? repo.description.substring(0, 60) + '...' : 'No description'}</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+                        <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                        <span><i class="fas fa-code"></i> ${repo.language || 'Code'}</span>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <a href="${repo.html_url}" target="_blank" class="repo-link">View Repo</a>
+                        ${repo.homepage ? `<a href="${repo.homepage.startsWith('http') ? repo.homepage : 'https://' + repo.homepage}" target="_blank" class="repo-link" style="color:var(--gh-primary-bg);">Live Demo</a>` : ''}
+                    </div>
+                `;
+                repoContainer.appendChild(repoCard);
+            });
+        }
     } catch (error) {
         console.error('Error fetching GitHub stats:', error);
         document.getElementById('github-overview').innerHTML = '<p class="error">Failed to load data</p>';
