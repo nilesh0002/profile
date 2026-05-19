@@ -134,8 +134,11 @@ async function fetchGitHubStats() {
         }
     } catch (error) {
         console.error('Error fetching GitHub stats:', error);
-        document.getElementById('github-overview').innerHTML = '<p class="error">Failed to load data</p>';
-        document.getElementById('github-repos').innerHTML = '<p class="error">Failed to load repositories</p>';
+        const ghOverview = document.getElementById('github-overview');
+        if (ghOverview) ghOverview.innerHTML = '<p class="error">Failed to load data</p>';
+        
+        const ghRepos = document.getElementById('github-repos');
+        if (ghRepos) ghRepos.innerHTML = '<p class="error">Failed to load repositories</p>';
     }
 }
 
