@@ -7,9 +7,11 @@ const Overview = ({
   gfgStats 
 }) => {
   // Generate GitHub streak url based on theme
+  // Cache-bust with today's date so the streak image always shows the current date
+  const today = new Date().toISOString().split('T')[0]; // e.g. "2026-05-21"
   const streakUrl = theme === 'light'
-    ? "https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=default&hide_border=true&background=ffffff&ring=0969da&fire=0969da&currStreakNum=24292f"
-    : "https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=dark&hide_border=true&background=0d1117&ring=58a6ff&fire=58a6ff&currStreakNum=c9d1d9";
+    ? `https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=default&hide_border=true&background=ffffff&ring=0969da&fire=0969da&currStreakNum=24292f&v=${today}`
+    : `https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=dark&hide_border=true&background=0d1117&ring=58a6ff&fire=58a6ff&currStreakNum=c9d1d9&v=${today}`;
 
   return (
     <div className="gh-content">
