@@ -99,21 +99,40 @@ a:hover {
     text-decoration: none;
 }
 
-.theme-toggle {
-    background: none;
-    border: none;
-    color: var(--gh-text-primary);
-    cursor: pointer;
-    font-size: 16px;
+.theme-toggle-ribbon {
+    max-width: 1280px;
+    margin: 16px auto 0;
+    padding: 0 32px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s;
-    padding: 4px;
+    justify-content: flex-end;
 }
 
-.theme-toggle:hover {
-    color: var(--gh-text-secondary);
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 4px 12px;
+    background-color: var(--gh-btn-bg);
+    border: 1px solid var(--gh-btn-border);
+    color: var(--gh-text-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--gh-btn-hover);
+    border-color: var(--gh-text-secondary);
+}
+
+.theme-toggle-btn i {
+    font-size: 12px;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 3px #3fb950; opacity: 1; }
+    50% { box-shadow: 0 0 8px #3fb950; opacity: 0.8; }
 }
 
 /* Tabs */
@@ -654,6 +673,14 @@ a:hover {
 .notification.error { background-color: var(--gh-bg); color: var(--accent-color); }
 .notification.show { bottom: 20px; }
 
+.contact-layout {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    align-items: flex-start;
+    width: 100%;
+}
+
 @media (max-width: 768px) {
     /* Main Layout */
     .gh-main { 
@@ -707,5 +734,14 @@ a:hover {
         justify-content: center;
         text-align: center;
         line-height: 1.8;
+    }
+    
+    .contact-layout {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .issue-sidebar {
+        width: 100% !important;
     }
 }

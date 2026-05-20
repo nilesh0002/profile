@@ -128,13 +128,9 @@ function App() {
       <div className="app-container">
         <Tabs />
         
-        <div style={{ maxWidth: '1280px', margin: '16px auto 0', padding: '0 32px', display: 'flex', justifyContent: 'flex-end' }}>
-          <button 
-            className="gh-btn" 
-            onClick={toggleTheme}
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', padding: '4px 12px' }}
-          >
-            <i className={theme === 'light' ? 'fas fa-moon' : 'fas fa-sun'}></i>
+        <div className="theme-toggle-ribbon">
+          <button className="theme-toggle-btn" onClick={toggleTheme}>
+            <i className={theme === 'light' ? 'fas fa-moon' : 'fas fa-sun'} style={{ color: theme === 'light' ? 'var(--gh-text-secondary)' : '#e3b341' }}></i>
             <span>{theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}</span>
           </button>
         </div>
