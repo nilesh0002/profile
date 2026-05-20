@@ -131,10 +131,13 @@ const Contact = () => {
     try {
       // Create a temporary form element or send direct object parameters to EmailJS
       const templateParams = {
+        name: formData.name,
         from_name: formData.name,
+        email: formData.email,
         from_email: formData.email,
         subject: formData.subject,
         message: submissionMessage,
+        time: new Date().toLocaleString(),
         labels: labelsString
       };
 
