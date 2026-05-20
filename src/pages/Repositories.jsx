@@ -74,7 +74,7 @@ const Repositories = () => {
         </span>
       </div>
 
-      <div className="repo-filters" style={{ display: 'flex', gap: '10px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
+      <div className="repo-filters" style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
         <input 
           type="text" 
           id="repo-search" 
@@ -82,32 +82,52 @@ const Repositories = () => {
           placeholder="Find a repository…" 
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ flex: '1', maxWidth: '300px' }}
+          style={{ flex: '1', minWidth: '200px', maxWidth: '320px', borderRadius: '6px', padding: '6px 12px' }}
         />
-        <button 
-          className={`repo-filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-          onClick={() => setActiveFilter('all')}
-        >
-          All
-        </button>
-        <button 
-          className={`repo-filter-btn ${activeFilter === 'JavaScript' ? 'active' : ''}`}
-          onClick={() => setActiveFilter('JavaScript')}
-        >
-          JavaScript
-        </button>
-        <button 
-          className={`repo-filter-btn ${activeFilter === 'Python' ? 'active' : ''}`}
-          onClick={() => setActiveFilter('Python')}
-        >
-          Python
-        </button>
-        <button 
-          className={`repo-filter-btn ${activeFilter === 'HTML' ? 'active' : ''}`}
-          onClick={() => setActiveFilter('HTML')}
-        >
-          HTML
-        </button>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <button 
+            className={`gh-btn ${activeFilter === 'all' ? 'gh-btn-primary' : ''}`}
+            onClick={() => setActiveFilter('all')}
+            style={{ 
+              borderRadius: '20px', 
+              padding: '5px 16px', 
+              fontSize: '13px', 
+              fontWeight: '500', 
+              transition: 'all 0.2s ease',
+              border: activeFilter === 'all' ? 'none' : '1px solid var(--gh-border)'
+            }}
+          >
+            All
+          </button>
+          {['JavaScript', 'Python', 'HTML'].map(lang => (
+            <button 
+              key={lang}
+              className={`gh-btn ${activeFilter === lang ? 'gh-btn-primary' : ''}`}
+              onClick={() => setActiveFilter(lang)}
+              style={{ 
+                borderRadius: '20px', 
+                padding: '5px 16px', 
+                fontSize: '13px', 
+                fontWeight: '500', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px',
+                transition: 'all 0.2s ease',
+                border: activeFilter === lang ? 'none' : '1px solid var(--gh-border)'
+              }}
+            >
+              <span style={{ 
+                backgroundColor: langColors[lang], 
+                width: '10px', 
+                height: '10px', 
+                borderRadius: '50%',
+                display: 'inline-block',
+                boxShadow: activeFilter === lang ? 'inset 0 0 0 1px rgba(0,0,0,0.2)' : 'none'
+              }}></span>
+              {lang}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
