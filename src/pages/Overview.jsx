@@ -1,60 +1,38 @@
 import React, { useState, useEffect } from 'react';
 
-// ── GitHub Contribution Heatmap ──────────────────────────────────────────────
+// ── GitHub Contribution Calendar with REAL data ──────────────────────────────
 const GitHubCalendar = ({ theme }) => {
-  const [weeks, setWeeks] = useState([]);
+  const [contributions, setContributions] = useState({});
   const [loading, setLoading] = useState(true);
-  const [totalContribs, setTotalContribs] = useState(0);
+  const [error, setError] = useState(false);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    // Generate a realistic-looking 52-week calendar seeded from nilesh0002's real activity
-    // Uses deterministic random so it looks consistent
-    const generateCalendar = () => {
-      const today = new Date();
-      const result = [];
-      let total = 0;
-
-      for (let w = 51; w >= 0; w--) {
-        const week = [];
-        for (let d = 6; d >= 0; d--) {
-          const date = new Date(today);
-          date.setDate(today.getDate() - (w * 7 + d));
-          if (date > today) { week.push({ date, count: 0 }); continue; }
-
-          // Deterministic seed based on date string
-          const seed = date.toISOString().split('T')[0];
-          const hash = seed.split('').reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 0);
-          const rand = Math.abs(hash) % 100;
-
-          // Weighted distribution: mostly 0, some low, occasional high
-          let count = 0;
-          if (rand < 45) count = 0;
-          else if (rand < 62) count = 1 + (Math.abs(hash >> 3) % 3);
-          else if (rand < 78) count = 4 + (Math.abs(hash >> 5) % 4);
-          else if (rand < 90) count = 8 + (Math.abs(hash >> 7) % 6);
-          else count = 14 + (Math.abs(hash >> 9) % 8);
-
-          total += count;
-          week.push({ date, count });
-        }
-        result.push(week.reverse());
-      }
-      setWeeks(result);
-      setTotalContribs(total);
-      setLoading(false);
-    };
-    generateCalendar();
+    fetch('https://github-contributions-api.jogruber.de/v4/nilesh0002?y=last')
+      .then(r => r.json())
+      .then(data => {
+        const map = {};
+        let t = 0;
+        (data.contributions || []).forEach(({ date, count }) => {
+          map[date] = count;
+          t += count;
+        });
+        setContributions(map);
+        setTotal(t);
+        setLoading(false);
+      })
+      .catch(() => { setError(true); setLoading(false); });
   }, []);
 
   const getColor = (count) => {
     if (theme === 'light') {
-      if (count === 0) return '#ebedf0';
+      if (!count || count === 0) return '#ebedf0';
       if (count <= 3)  return '#9be9a8';
       if (count <= 7)  return '#40c463';
       if (count <= 12) return '#30a14e';
       return '#216e39';
     } else {
-      if (count === 0) return '#161b22';
+      if (!count || count === 0) return '#161b22';
       if (count <= 3)  return '#0e4429';
       if (count <= 7)  return '#006d32';
       if (count <= 12) return '#26a641';
@@ -62,62 +40,87 @@ const GitHubCalendar = ({ theme }) => {
     }
   };
 
+  // Build 52-week grid ending today
+  const buildGrid = () => {
+    const today = new Date();
+    const weeks = [];
+    for (let w = 51; w >= 0; w--) {
+      const week = [];
+      for (let d = 0; d <= 6; d++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - (w * 7) - (6 - d));
+        const key = date.toISOString().split('T')[0];
+        week.push({ date, key, count: contributions[key] || 0 });
+      }
+      weeks.push(week);
+    }
+    return weeks;
+  };
+
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const days = ['Mon','','Wed','','Fri','',''];
+  const dayLabels = ['Mon','','Wed','','Fri','',''];
 
-  if (loading) return <div style={{ height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gh-text-secondary)', fontSize: '12px' }}>Loading calendar...</div>;
+  if (loading) return (
+    <div style={{ height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gh-text-secondary)', fontSize: '12px' }}>
+      <i className="fas fa-spinner fa-spin" style={{ marginRight: '8px' }}></i> Loading real data...
+    </div>
+  );
 
-  // Find month labels
+  if (error) return (
+    <div style={{ height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gh-text-secondary)', fontSize: '12px' }}>
+      Could not load contribution data
+    </div>
+  );
+
+  const weeks = buildGrid();
+
   const monthLabels = [];
   weeks.forEach((week, wi) => {
-    if (week[0]) {
-      const m = week[0].date.getMonth();
-      const prev = wi > 0 && weeks[wi-1][0] ? weeks[wi-1][0].date.getMonth() : -1;
-      if (m !== prev) monthLabels.push({ wi, label: months[m] });
-    }
+    const m = week[0].date.getMonth();
+    const prev = wi > 0 ? weeks[wi - 1][0].date.getMonth() : -1;
+    if (m !== prev) monthLabels.push({ wi, label: months[m] });
   });
 
   return (
     <div style={{ overflowX: 'auto' }}>
-      <div style={{ fontSize: '11px', color: 'var(--gh-text-secondary)', marginBottom: '6px' }}>
-        {totalContribs.toLocaleString()} contributions in the last year
+      <div style={{ fontSize: '11px', color: 'var(--gh-text-secondary)', marginBottom: '8px' }}>
+        <strong style={{ color: 'var(--gh-text-primary)' }}>{total.toLocaleString()}</strong> contributions in the last year
       </div>
-      <div style={{ display: 'flex', gap: '2px', position: 'relative', minWidth: '660px' }}>
+      <div style={{ display: 'flex', gap: '3px', position: 'relative', minWidth: '680px' }}>
         {/* Day labels */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '18px', marginRight: '4px' }}>
-          {days.map((d, i) => (
-            <div key={i} style={{ height: '10px', fontSize: '9px', color: 'var(--gh-text-secondary)', lineHeight: '10px' }}>{d}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '18px', marginRight: '4px', flexShrink: 0 }}>
+          {dayLabels.map((d, i) => (
+            <div key={i} style={{ height: '10px', fontSize: '9px', color: 'var(--gh-text-secondary)', lineHeight: '10px', width: '20px' }}>{d}</div>
           ))}
         </div>
-        {/* Grid */}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {/* Calendar grid */}
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
           {/* Month labels */}
-          <div style={{ display: 'flex', gap: '2px', marginBottom: '4px', height: '14px', position: 'relative' }}>
+          <div style={{ position: 'relative', height: '16px', marginBottom: '2px' }}>
             {monthLabels.map(({ wi, label }) => (
-              <div key={wi} style={{
+              <span key={wi} style={{
                 position: 'absolute',
-                left: `${wi * 12}px`,
+                left: `${wi * 13}px`,
                 fontSize: '9px',
                 color: 'var(--gh-text-secondary)',
                 whiteSpace: 'nowrap'
-              }}>{label}</div>
+              }}>{label}</span>
             ))}
           </div>
-          {/* Weeks as columns */}
+          {/* Weeks */}
           <div style={{ display: 'flex', gap: '2px' }}>
             {weeks.map((week, wi) => (
               <div key={wi} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                 {week.map((day, di) => (
                   <div
                     key={di}
-                    title={`${day.date.toDateString()}: ${day.count} contributions`}
+                    title={`${day.key}: ${day.count} contribution${day.count !== 1 ? 's' : ''}`}
                     style={{
                       width: '10px',
                       height: '10px',
                       borderRadius: '2px',
                       backgroundColor: getColor(day.count),
                       cursor: 'default',
-                      transition: 'opacity 0.1s'
                     }}
                   />
                 ))}
@@ -127,9 +130,9 @@ const GitHubCalendar = ({ theme }) => {
         </div>
       </div>
       {/* Legend */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '8px', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '10px', justifyContent: 'flex-end' }}>
         <span style={{ fontSize: '9px', color: 'var(--gh-text-secondary)' }}>Less</span>
-        {[0, 2, 5, 10, 16].map(c => (
+        {[0, 2, 5, 9, 15].map(c => (
           <div key={c} style={{ width: '10px', height: '10px', borderRadius: '2px', backgroundColor: getColor(c) }} />
         ))}
         <span style={{ fontSize: '9px', color: 'var(--gh-text-secondary)' }}>More</span>
@@ -138,100 +141,116 @@ const GitHubCalendar = ({ theme }) => {
   );
 };
 
-// ── LeetCode Submission Heatmap ──────────────────────────────────────────────
-const LeetCodeCalendar = ({ theme, totalSolved }) => {
-  const [weeks, setWeeks] = useState([]);
+// ── LeetCode Submission Calendar with REAL data ──────────────────────────────
+const LeetCodeCalendar = ({ theme }) => {
+  const [submissions, setSubmissions] = useState({});
   const [loading, setLoading] = useState(true);
-  const [totalSubs, setTotalSubs] = useState(0);
+  const [error, setError] = useState(false);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const generateCalendar = () => {
-      const today = new Date();
-      const result = [];
-      let total = 0;
-
-      for (let w = 51; w >= 0; w--) {
-        const week = [];
-        for (let d = 6; d >= 0; d--) {
-          const date = new Date(today);
-          date.setDate(today.getDate() - (w * 7 + d));
-          if (date > today) { week.push({ date, count: 0 }); continue; }
-
-          const seed = 'lc' + date.toISOString().split('T')[0];
-          const hash = seed.split('').reduce((a, c) => (a * 37 + c.charCodeAt(0)) | 0, 0);
-          const rand = Math.abs(hash) % 100;
-
-          let count = 0;
-          if (rand < 55) count = 0;
-          else if (rand < 72) count = 1;
-          else if (rand < 84) count = 2 + (Math.abs(hash >> 4) % 3);
-          else if (rand < 93) count = 5 + (Math.abs(hash >> 6) % 5);
-          else count = 10 + (Math.abs(hash >> 8) % 8);
-
-          total += count;
-          week.push({ date, count });
-        }
-        result.push(week.reverse());
-      }
-      setWeeks(result);
-      setTotalSubs(total);
-      setLoading(false);
-    };
-    generateCalendar();
+    fetch('https://alfa-leetcode-api.onrender.com/nilesh_98/calendar')
+      .then(r => r.json())
+      .then(data => {
+        // submissionCalendar is a JSON string of { "timestamp": count }
+        const raw = data.submissionCalendar
+          ? (typeof data.submissionCalendar === 'string' ? JSON.parse(data.submissionCalendar) : data.submissionCalendar)
+          : {};
+        // Convert unix timestamps → "YYYY-MM-DD" keys
+        const map = {};
+        let t = 0;
+        Object.entries(raw).forEach(([ts, count]) => {
+          const date = new Date(parseInt(ts) * 1000);
+          const key = date.toISOString().split('T')[0];
+          map[key] = (map[key] || 0) + count;
+          t += count;
+        });
+        setSubmissions(map);
+        setTotal(t);
+        setLoading(false);
+      })
+      .catch(() => { setError(true); setLoading(false); });
   }, []);
 
   const getColor = (count) => {
-    // LeetCode uses orange shades
     if (theme === 'light') {
-      if (count === 0) return '#f0f0f0';
-      if (count === 1) return '#ffd9a8';
+      if (!count || count === 0) return '#f0f0f0';
+      if (count === 1)  return '#ffd9a8';
       if (count <= 4)  return '#ffb347';
       if (count <= 9)  return '#ff8c00';
       return '#e65c00';
     } else {
-      if (count === 0) return '#1a1a2e';
-      if (count === 1) return '#3d2000';
+      if (!count || count === 0) return '#1a1a2e';
+      if (count === 1)  return '#3d2000';
       if (count <= 4)  return '#7a4100';
       if (count <= 9)  return '#b85c00';
       return '#FFA116';
     }
   };
 
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const days = ['Mon','','Wed','','Fri','',''];
+  const buildGrid = () => {
+    const today = new Date();
+    const weeks = [];
+    for (let w = 51; w >= 0; w--) {
+      const week = [];
+      for (let d = 0; d <= 6; d++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - (w * 7) - (6 - d));
+        const key = date.toISOString().split('T')[0];
+        week.push({ date, key, count: submissions[key] || 0 });
+      }
+      weeks.push(week);
+    }
+    return weeks;
+  };
 
-  if (loading) return <div style={{ height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gh-text-secondary)', fontSize: '12px' }}>Loading calendar...</div>;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayLabels = ['Mon','','Wed','','Fri','',''];
+
+  if (loading) return (
+    <div style={{ height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gh-text-secondary)', fontSize: '12px' }}>
+      <i className="fas fa-spinner fa-spin" style={{ marginRight: '8px' }}></i> Loading real data...
+    </div>
+  );
+
+  if (error) return (
+    <div style={{ height: '110px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gh-text-secondary)', fontSize: '12px' }}>
+      Could not load LeetCode data
+    </div>
+  );
+
+  const weeks = buildGrid();
 
   const monthLabels = [];
   weeks.forEach((week, wi) => {
-    if (week[0]) {
-      const m = week[0].date.getMonth();
-      const prev = wi > 0 && weeks[wi-1][0] ? weeks[wi-1][0].date.getMonth() : -1;
-      if (m !== prev) monthLabels.push({ wi, label: months[m] });
-    }
+    const m = week[0].date.getMonth();
+    const prev = wi > 0 ? weeks[wi - 1][0].date.getMonth() : -1;
+    if (m !== prev) monthLabels.push({ wi, label: months[m] });
   });
 
   return (
     <div style={{ overflowX: 'auto' }}>
-      <div style={{ fontSize: '11px', color: 'var(--gh-text-secondary)', marginBottom: '6px' }}>
-        {totalSubs.toLocaleString()} submissions in the last year
+      <div style={{ fontSize: '11px', color: 'var(--gh-text-secondary)', marginBottom: '8px' }}>
+        <strong style={{ color: 'var(--gh-text-primary)' }}>{total.toLocaleString()}</strong> submissions in the last year
       </div>
-      <div style={{ display: 'flex', gap: '2px', position: 'relative', minWidth: '660px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '18px', marginRight: '4px' }}>
-          {days.map((d, i) => (
-            <div key={i} style={{ height: '10px', fontSize: '9px', color: 'var(--gh-text-secondary)', lineHeight: '10px' }}>{d}</div>
+      <div style={{ display: 'flex', gap: '3px', position: 'relative', minWidth: '680px' }}>
+        {/* Day labels */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '18px', marginRight: '4px', flexShrink: 0 }}>
+          {dayLabels.map((d, i) => (
+            <div key={i} style={{ height: '10px', fontSize: '9px', color: 'var(--gh-text-secondary)', lineHeight: '10px', width: '20px' }}>{d}</div>
           ))}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', gap: '2px', marginBottom: '4px', height: '14px', position: 'relative' }}>
+        {/* Calendar grid */}
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+          <div style={{ position: 'relative', height: '16px', marginBottom: '2px' }}>
             {monthLabels.map(({ wi, label }) => (
-              <div key={wi} style={{
+              <span key={wi} style={{
                 position: 'absolute',
-                left: `${wi * 12}px`,
+                left: `${wi * 13}px`,
                 fontSize: '9px',
                 color: 'var(--gh-text-secondary)',
                 whiteSpace: 'nowrap'
-              }}>{label}</div>
+              }}>{label}</span>
             ))}
           </div>
           <div style={{ display: 'flex', gap: '2px' }}>
@@ -240,13 +259,13 @@ const LeetCodeCalendar = ({ theme, totalSolved }) => {
                 {week.map((day, di) => (
                   <div
                     key={di}
-                    title={`${day.date.toDateString()}: ${day.count} submissions`}
+                    title={`${day.key}: ${day.count} submission${day.count !== 1 ? 's' : ''}`}
                     style={{
                       width: '10px',
                       height: '10px',
-                      borderRadius: '50%',   // ← CIRCLES for LeetCode (dots!)
+                      borderRadius: '50%',   // ← CIRCLES for LeetCode
                       backgroundColor: getColor(day.count),
-                      cursor: 'default'
+                      cursor: 'default',
                     }}
                   />
                 ))}
@@ -256,7 +275,7 @@ const LeetCodeCalendar = ({ theme, totalSolved }) => {
         </div>
       </div>
       {/* Legend */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '8px', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '10px', justifyContent: 'flex-end' }}>
         <span style={{ fontSize: '9px', color: 'var(--gh-text-secondary)' }}>Less</span>
         {[0, 1, 3, 7, 12].map(c => (
           <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: getColor(c) }} />
@@ -269,11 +288,6 @@ const LeetCodeCalendar = ({ theme, totalSolved }) => {
 
 // ── Main Overview Component ──────────────────────────────────────────────────
 const Overview = ({ theme, githubStats, leetcodeStats, gfgStats }) => {
-  const today = new Date().toISOString().split('T')[0];
-  const activityGraphUrl = theme === 'light'
-    ? `https://github-readme-activity-graph.vercel.app/graph?username=nilesh0002&bg_color=ffffff&color=0969da&line=0969da&point=0969da&area=true&hide_border=true&v=${today}`
-    : `https://github-readme-activity-graph.vercel.app/graph?username=nilesh0002&bg_color=0d1117&color=58a6ff&line=58a6ff&point=58a6ff&area=true&hide_border=true&v=${today}`;
-
   return (
     <div className="gh-content">
       <div id="overview" className="readme-box">
@@ -317,14 +331,6 @@ const Overview = ({ theme, githubStats, leetcodeStats, gfgStats }) => {
             <GitHubCalendar theme={theme} />
           </div>
 
-          {/* ── Activity Wave Graph ── */}
-          <img
-            id="github-activity-graph"
-            src={activityGraphUrl}
-            alt="GitHub Activity Graph"
-            style={{ width: '100%', borderRadius: '8px', marginTop: '12px', display: 'block' }}
-          />
-
           {/* ── LeetCode Calendar ── */}
           <h2 className="mt-4 border-top pt-3" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <i className="fas fa-code" style={{ color: '#FFA116', fontSize: '18px' }}></i> LeetCode Submissions
@@ -336,7 +342,7 @@ const Overview = ({ theme, githubStats, leetcodeStats, gfgStats }) => {
             padding: '16px',
             marginTop: '10px'
           }}>
-            <LeetCodeCalendar theme={theme} totalSolved={leetcodeStats?.totalSolved} />
+            <LeetCodeCalendar theme={theme} />
           </div>
         </div>
       </div>
