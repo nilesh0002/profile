@@ -42,7 +42,7 @@ const Contact = () => {
     });
   };
 
-  // Markdown Toolbar helper to insert syntax at cursor
+  // Markdown Toolbar helper to insert syntax at cursor with premium selection preservation
   const insertMarkdown = (syntax) => {
     const textarea = textareaRef.current;
     if (!textarea) return;
@@ -54,38 +54,57 @@ const Contact = () => {
     const after = text.substring(end, text.length);
     const selected = text.substring(start, end);
 
-    let replacement = '';
+    let prefix = '';
+    let suffix = '';
+    let defaultValue = '';
+
     switch (syntax) {
       case 'bold':
-        replacement = `**${selected || 'bold text'}**`;
+        prefix = '**';
+        suffix = '**';
+        defaultValue = 'bold text';
         break;
       case 'italic':
-        replacement = `*${selected || 'italic text'}*`;
+        prefix = '*';
+        suffix = '*';
+        defaultValue = 'italic text';
         break;
       case 'code':
-        replacement = `\`${selected || 'code'}\``;
+        prefix = '`';
+        suffix = '`';
+        defaultValue = 'code';
         break;
       case 'quote':
-        replacement = `\n> ${selected || 'blockquote'}\n`;
+        prefix = '\n> ';
+        suffix = '\n';
+        defaultValue = 'blockquote';
         break;
       case 'link':
-        replacement = `[${selected || 'link text'}](https://example.com)`;
+        prefix = '[';
+        suffix = '](https://example.com)';
+        defaultValue = 'link text';
         break;
       case 'list':
-        replacement = `\n- ${selected || 'list item'}\n`;
+        prefix = '\n- ';
+        suffix = '\n';
+        defaultValue = 'list item';
         break;
       default:
         return;
     }
 
+    const valueToWrap = selected || defaultValue;
+    const replacement = prefix + valueToWrap + suffix;
     const newText = before + replacement + after;
+    
     setFormData(prev => ({ ...prev, message: newText }));
 
-    // Refocus and place cursor after inserted text
+    // Refocus and select the formatted text nicely
     setTimeout(() => {
       textarea.focus();
-      const newCursorPos = start + replacement.length;
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
+      const newStart = start + prefix.length;
+      const newEnd = newStart + valueToWrap.length;
+      textarea.setSelectionRange(newStart, newEnd);
     }, 50);
   };
 
@@ -523,13 +542,13 @@ const Contact = () => {
                     gap: '12px',
                     alignItems: 'center'
                   }}>
-                    <button type="button" onClick={() => insertMarkdown('bold')} title="Bold Text" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-bold"></i></button>
-                    <button type="button" onClick={() => insertMarkdown('italic')} title="Italic Text" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-italic"></i></button>
-                    <button type="button" onClick={() => insertMarkdown('code')} title="Insert Code" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-code"></i></button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => insertMarkdown('bold')} title="Bold Text" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-bold"></i></button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => insertMarkdown('italic')} title="Italic Text" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-italic"></i></button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => insertMarkdown('code')} title="Insert Code" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-code"></i></button>
                     <div style={{ width: '1px', height: '14px', backgroundColor: 'var(--gh-border)' }}></div>
-                    <button type="button" onClick={() => insertMarkdown('quote')} title="Insert Blockquote" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-quote-right"></i></button>
-                    <button type="button" onClick={() => insertMarkdown('link')} title="Insert Link" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-link"></i></button>
-                    <button type="button" onClick={() => insertMarkdown('list')} title="Insert Bullet List" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-list-ul"></i></button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => insertMarkdown('quote')} title="Insert Blockquote" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-quote-right"></i></button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => insertMarkdown('link')} title="Insert Link" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-link"></i></button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => insertMarkdown('list')} title="Insert Bullet List" style={{ background: 'none', border: 'none', color: 'var(--gh-text-secondary)', cursor: 'pointer', fontSize: '13px', padding: '2px' }}><i className="fas fa-list-ul"></i></button>
                   </div>
 
                   {/* Text Message Area */}
