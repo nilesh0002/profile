@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
 import Tabs from './components/Tabs';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -127,9 +126,18 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <Header theme={theme} toggleTheme={toggleTheme} />
-        
         <Tabs />
+        
+        <div style={{ maxWidth: '1280px', margin: '16px auto 0', padding: '0 32px', display: 'flex', justifyContent: 'flex-end' }}>
+          <button 
+            className="gh-btn" 
+            onClick={toggleTheme}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', padding: '4px 12px' }}
+          >
+            <i className={theme === 'light' ? 'fas fa-moon' : 'fas fa-sun'}></i>
+            <span>{theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}</span>
+          </button>
+        </div>
 
         <main className="gh-main">
           <Sidebar 
