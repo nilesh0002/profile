@@ -6,12 +6,23 @@ const Overview = ({
   leetcodeStats, 
   gfgStats 
 }) => {
-  // Generate GitHub streak url based on theme
-  // Cache-bust with today's date so the streak image always shows the current date
-  const today = new Date().toISOString().split('T')[0]; // e.g. "2026-05-21"
+  // Cache-bust with today's date so images always load fresh
+  const today = new Date().toISOString().split('T')[0];
+
+  // Activity graph — wave/bar chart (looks best on portfolios)
+  const activityGraphUrl = theme === 'light'
+    ? `https://github-readme-activity-graph.vercel.app/graph?username=nilesh0002&bg_color=ffffff&color=0969da&line=0969da&point=0969da&area=true&hide_border=true&v=${today}`
+    : `https://github-readme-activity-graph.vercel.app/graph?username=nilesh0002&bg_color=0d1117&color=58a6ff&line=58a6ff&point=58a6ff&area=true&hide_border=true&v=${today}`;
+
+  // Streak stats image
   const streakUrl = theme === 'light'
     ? `https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=default&hide_border=true&background=ffffff&ring=0969da&fire=0969da&currStreakNum=24292f&v=${today}`
     : `https://github-readme-streak-stats.herokuapp.com/?user=nilesh0002&theme=dark&hide_border=true&background=0d1117&ring=58a6ff&fire=58a6ff&currStreakNum=c9d1d9&v=${today}`;
+
+  // GitHub stats card
+  const githubStatsCardUrl = theme === 'light'
+    ? `https://github-readme-stats.vercel.app/api?username=nilesh0002&show_icons=true&theme=default&hide_border=true&bg_color=ffffff&title_color=0969da&icon_color=0969da&v=${today}`
+    : `https://github-readme-stats.vercel.app/api?username=nilesh0002&show_icons=true&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=58a6ff&icon_color=58a6ff&v=${today}`;
 
   return (
     <div className="gh-content">
@@ -43,12 +54,30 @@ const Overview = ({
           </ul>
 
           <h2 className="mt-4 border-top pt-3">Contribution Activity</h2>
-          <img 
-            id="github-streak" 
-            src={streakUrl} 
-            alt="GitHub Streak" 
-            style={{ width: '100%', borderRadius: '6px', marginTop: '10px' }} 
+
+          {/* Activity Graph — wave chart */}
+          <img
+            id="github-activity-graph"
+            src={activityGraphUrl}
+            alt="GitHub Activity Graph"
+            style={{ width: '100%', borderRadius: '8px', marginTop: '10px', display: 'block' }}
           />
+
+          {/* Streak + Stats side by side */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '12px' }}>
+            <img
+              id="github-streak"
+              src={streakUrl}
+              alt="GitHub Streak"
+              style={{ width: '100%', borderRadius: '8px' }}
+            />
+            <img
+              id="github-stats-card"
+              src={githubStatsCardUrl}
+              alt="GitHub Stats"
+              style={{ width: '100%', borderRadius: '8px' }}
+            />
+          </div>
         </div>
       </div>
 
