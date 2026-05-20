@@ -281,9 +281,38 @@ a:hover {
 }
 
 .detail-item i {
-    color: var(--gh-text-secondary);
     width: 16px;
     text-align: center;
+}
+
+.gh-social-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gh-border);
+    align-items: center;
+}
+
+.gh-social-links a {
+    color: var(--gh-text-secondary);
+    font-size: 18px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.gh-social-links a:hover {
+    color: var(--gh-link);
+    text-decoration: none;
+    background-color: var(--gh-btn-hover);
+    border-color: var(--gh-border);
+    transform: translateY(-2px);
 }
 
 .topic-tags {

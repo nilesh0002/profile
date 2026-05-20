@@ -40,17 +40,20 @@ const Sidebar = ({ followersCount, followingCount }) => {
         <div className="detail-item">
           <i className="fas fa-graduation-cap"></i> B.Tech CSE Student
         </div>
-        <div className="detail-item">
-          <i className="fas fa-envelope"></i>{' '}
-          <a href="mailto:nilesh.singh0032@gmail.com">nilesh.singh0032@gmail.com</a>
-        </div>
-        <div className="detail-item">
-          <i className="fab fa-twitter"></i>{' '}
-          <a href="https://twitter.com/nil_esh__" target="_blank" rel="noopener noreferrer">@nil_esh__</a>
-        </div>
-        <div className="detail-item">
-          <i className="fab fa-linkedin"></i>{' '}
-          <a href="https://www.linkedin.com/in/nileshsingh98" target="_blank" rel="noopener noreferrer">nileshsingh98</a>
+        
+        <div className="gh-social-links">
+          <a href="mailto:nilesh.singh0032@gmail.com" title="Email Nilesh">
+            <i className="fas fa-envelope"></i>
+          </a>
+          <a href="https://twitter.com/nil_esh__" target="_blank" rel="noopener noreferrer" title="Twitter Profile">
+            <i className="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/nileshsingh98" target="_blank" rel="noopener noreferrer" title="LinkedIn Profile">
+            <i className="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/nilesh0002" target="_blank" rel="noopener noreferrer" title="GitHub Profile">
+            <i className="fab fa-github"></i>
+          </a>
         </div>
       </div>
       
