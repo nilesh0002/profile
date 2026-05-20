@@ -18,7 +18,6 @@ const Sidebar = ({ followersCount, followingCount }) => {
           <span className="otw-dot"></span> Open to Work
         </span>
       </div>
-      <button className="gh-btn w-full mb-3">Edit profile</button>
       <a 
         href="/Nilesh_Singh_Resume.pdf" 
         download 
