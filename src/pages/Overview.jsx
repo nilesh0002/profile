@@ -149,7 +149,7 @@ const LeetCodeCalendar = ({ theme }) => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    fetch('https://alfa-leetcode-api.onrender.com/nilesh_98/calendar')
+    fetch('https://alfa-leetcode-api.onrender.com/nilesh0002/calendar')
       .then(r => r.json())
       .then(data => {
         // submissionCalendar is a JSON string of { "timestamp": count }
