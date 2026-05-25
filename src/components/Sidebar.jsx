@@ -1,5 +1,5 @@
 import React from 'react';
-import resumePdf from '../assets/resume.pdf';
+import resumePdf from '../assets/Nilesh.pdf';
 
 const Sidebar = ({ followersCount, followingCount }) => {
   return (
