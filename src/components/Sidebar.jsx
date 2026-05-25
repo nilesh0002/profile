@@ -1,5 +1,4 @@
 import React from 'react';
-import resumePdf from '../assets/Nilesh.pdf';
 
 const Sidebar = ({ followersCount, followingCount }) => {
   return (
@@ -20,7 +19,7 @@ const Sidebar = ({ followersCount, followingCount }) => {
         </span>
       </div>
       <a 
-        href={resumePdf}
+        href={`${import.meta.env.BASE_URL}Nilesh.pdf`} 
         download="Nilesh_Singh_Resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
