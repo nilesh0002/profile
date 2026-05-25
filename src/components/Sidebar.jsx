@@ -1,4 +1,5 @@
 import React from 'react';
+import resumePdf from '../assets/resume.pdf';
 
 const Sidebar = ({ followersCount, followingCount }) => {
   return (
@@ -19,8 +20,10 @@ const Sidebar = ({ followersCount, followingCount }) => {
         </span>
       </div>
       <a 
-        href="/Nilesh_Singh_Resume.pdf" 
-        download 
+        href={resumePdf}
+        download="Nilesh_Singh_Resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
         className="gh-btn w-full mb-3" 
         style={{ textAlign: 'center', display: 'block' }}
       >
